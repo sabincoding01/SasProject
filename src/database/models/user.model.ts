@@ -1,5 +1,6 @@
 import {Table,Column,Model,DataType} from "sequelize-typescript"
 
+
 @Table({
     tableName : 'users',
     // modeName: 'User',
@@ -9,12 +10,12 @@ import {Table,Column,Model,DataType} from "sequelize-typescript"
 class User extends Model{
 
     @Column({
-        primaryKey : true,
-        type : DataType.UUID,
-        defaultValue : DataType.UUIDV4
-    })
+  primaryKey: true,
+  type: DataType.INTEGER,
+  autoIncrement: true,
+})
+declare id: number;
 
-    declare id : string
 
     @Column({
 
@@ -43,3 +44,4 @@ class User extends Model{
     declare role : string
 }
   
+export default User
