@@ -31,6 +31,52 @@ class AuthController {
       });
     }
   }
-}
+
+  async loginUser(req:Request,res:Response){
+    const {email,password} = req.body
+    if(!email || !password){
+      res.status(400).json({
+        message : "Please provide email or passowrd"
+      })
+      return
+    }
+    //check if email or password is in our database or not
+   const data = await User.findAll({
+      where:{
+        email: email
+      }
+    })
+
+    if(data.length ==0){
+
+      res.status(404).json(
+        {
+         
+          message:"Not registrated"
+        }
+      )
+
+
+    }
+    else{
+     //check passwoprd
+    const isPasswordMatch = bcrypt.compareSync(password,data[0].password)
+    if (isPasswordMatch){
+      //login vayo ,token generation
+      //token --- your identity on digital platform
+    }
+    else{
+      res.status(403).json({
+        messange:"Invalid email or password"
+
+
+      })
+    }
+        }
+      }
+    }
+  
+
 
 export default AuthController;
+ 
