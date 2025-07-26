@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import User from "../../../database/models/user.model";
 import bcrypt from "bcrypt" 
+import jwt from "jsonwebtoken"
 
 class AuthController {
   static async registerUser(req: Request, res: Response) {
@@ -64,6 +65,12 @@ class AuthController {
     if (isPasswordMatch){
       //login vayo ,token generation
       //token --- your identity on digital platform
+      const token = jwt.sign({name:"sabin"},"thiissecret",{
+        expiresIn: "90d"
+      })
+      res.json({
+        token: token
+      })
     }
     else{
       res.status(403).json({
